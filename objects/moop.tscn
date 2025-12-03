@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfu3e7m6cqlbj"]
+
+[ext_resource type="Script" path="res://objects/moop.gd" id="1_5kq3f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ojut"]
+height = 1.40653
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2n3pq"]
+shading_mode = 0
+albedo_color = Color(0.290112, 0.193922, 0.353824, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b0gfr"]
+material = SubResource("StandardMaterial3D_2n3pq")
+height = 1.39
+
+[node name="moop" type="RigidBody3D"]
+script = ExtResource("1_5kq3f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.657404, 0)
+shape = SubResource("CapsuleShape3D_7ojut")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6719, 0)
+mesh = SubResource("CapsuleMesh_b0gfr")

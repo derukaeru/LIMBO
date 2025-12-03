@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://d418bn2klhjm"]
+
+[ext_resource type="Script" path="res://objects/datura.gd" id="1_citow"]
+[ext_resource type="ArrayMesh" uid="uid://r6x2cu2fvc83" path="res://models/datura_flower.obj" id="2_8i2t0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bsqmi"]
+top_radius = 0.0
+bottom_radius = 0.0
+height = 0.001
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_foew7"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="Animation" id="Animation_cu5lu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0662622, 0.0282435, -0.0649129)]
+}
+
+[sub_resource type="Animation" id="Animation_x3lgi"]
+resource_name = "idle"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0662622, 0.0282435, -0.0649129), Vector3(0.130944, -0.0987733, 0.0587518)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3e2n8"]
+_data = {
+"RESET": SubResource("Animation_cu5lu"),
+"idle": SubResource("Animation_x3lgi")
+}
+
+[node name="datura" type="MeshInstance3D"]
+transform = Transform3D(0.933051, 0, 0, 0, 0.933051, 0, 0, 0, 0.933051, 0, 0.862939, 0)
+mesh = SubResource("CylinderMesh_bsqmi")
+script = ExtResource("1_citow")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.08246, 0)
+shape = SubResource("BoxShape3D_foew7")
+
+[node name="RayCast3D" type="RayCast3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00245669)
+target_position = Vector3(0, -1100, 0)
+
+[node name="model" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(4.06762, 0.256772, 0.11489, -0.263905, 4.05982, 0.269975, -0.0973948, -0.276769, 4.06676, 0, -2.08991, 0)
+mesh = ExtResource("2_8i2t0")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D/model"]
+libraries = {
+"": SubResource("AnimationLibrary_3e2n8")
+}
+
+[node name="reproduce" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="age" type="Timer" parent="."]
+wait_time = 7.0
+
+[node name="anim" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="reproduce" to="." method="reproduce"]
+[connection signal="timeout" from="age" to="." method="die"]
+[connection signal="timeout" from="anim" to="." method="_on_anim_timeout"]

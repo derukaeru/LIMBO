@@ -1,0 +1,98 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx2n5ptt2761i"]
+
+[ext_resource type="Script" path="res://objects/player.gd" id="1_whpgg"]
+[ext_resource type="Script" path="res://objects/population_graph.gd" id="2_28mlv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipd6h"]
+shading_mode = 0
+albedo_color = Color(0.725849, 0.613154, 0.322766, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tinwe"]
+material = SubResource("StandardMaterial3D_ipd6h")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0s7ha"]
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_whpgg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02109, 0)
+mesh = SubResource("CapsuleMesh_tinwe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02109, 0)
+shape = SubResource("CapsuleShape3D_0s7ha")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70938, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40035, 0)
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D" groups=["cam"]]
+
+[node name="ui" type="ColorRect" parent="Node3D/SpringArm3D/Camera3D" groups=["ui"]]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -176.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="fps" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_right = 60.0
+offset_bottom = 24.0
+grow_horizontal = 2
+text = "FPS: 60"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="datura_count" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui"]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 176.0
+offset_right = 168.0
+offset_bottom = 200.0
+text = "datura: 100"
+
+[node name="cull" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -28.0
+offset_right = 232.0
+offset_bottom = -5.0
+grow_vertical = 0
+text = "cull distance: 55"
+
+[node name="population_graph" type="ColorRect" parent="Node3D/SpringArm3D/Camera3D/ui"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 24.0
+offset_right = 160.0
+offset_bottom = 168.0
+color = Color(0.41598, 0.41598, 0.41598, 1)
+script = ExtResource("2_28mlv")
+
+[node name="datura_pop" type="Line2D" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph"]
+
+[node name="Timer" type="Timer" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph/datura_pop"]
+wait_time = 2.0
+autostart = true
+
+[node name="update" type="Timer" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph"]
+autostart = true
+
+[connection signal="timeout" from="Node3D/SpringArm3D/Camera3D/ui/population_graph/datura_pop/Timer" to="Node3D/SpringArm3D/Camera3D/ui/population_graph" method="datura_pop_update"]
+[connection signal="timeout" from="Node3D/SpringArm3D/Camera3D/ui/population_graph/update" to="Node3D/SpringArm3D/Camera3D/ui/population_graph" method="update_graph"]

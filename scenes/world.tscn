@@ -1,0 +1,111 @@
+[gd_scene load_steps=15 format=3 uid="uid://cym2j0lbg3i0j"]
+
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_aho6f"]
+[ext_resource type="PackedScene" uid="uid://dfu3e7m6cqlbj" path="res://objects/moop.tscn" id="1_otf1a"]
+[ext_resource type="Script" path="res://scenes/terrain.gd" id="2_58vcn"]
+[ext_resource type="PackedScene" uid="uid://dx2n5ptt2761i" path="res://objects/player.tscn" id="2_gfrmt"]
+[ext_resource type="Texture2D" uid="uid://yhvpowmxubgd" path="res://textures/terrain_2.png" id="2_yaaiw"]
+[ext_resource type="Shader" path="res://misc/water.gdshader" id="3_mxpqk"]
+
+[sub_resource type="Sky" id="Sky_mtjn7"]
+
+[sub_resource type="Environment" id="Environment_crujd"]
+background_mode = 1
+background_color = Color(0.586097, 0.885535, 0.881571, 1)
+sky = SubResource("Sky_mtjn7")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7e5km"]
+size = Vector2(200, 200)
+
+[sub_resource type="Curve" id="Curve_iklxi"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_skf00"]
+curve = SubResource("Curve_iklxi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2n67"]
+shading_mode = 2
+diffuse_mode = 1
+albedo_texture = ExtResource("2_yaaiw")
+metallic_specular = 0.0
+roughness_texture = SubResource("CurveTexture_skf00")
+uv1_scale = Vector3(3, 3, 3)
+uv2_scale = Vector3(0.2, 0.2, 0.2)
+distance_fade_min_distance = 300.0
+distance_fade_max_distance = 150.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3c3gr"]
+render_priority = 0
+shader = ExtResource("3_mxpqk")
+shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Color(0.0253775, 0.295814, 0.670548, 1)
+shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(40, 40)
+shader_parameter/height = 3.0
+shader_parameter/wave_size = Vector2(1, 1)
+shader_parameter/wave_speed = 6.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_og5va"]
+material = SubResource("ShaderMaterial_3c3gr")
+size = Vector2(200, 200)
+subdivide_width = 20
+subdivide_depth = 20
+
+[node name="world" type="Node3D" groups=["world"]]
+script = ExtResource("1_aho6f")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_crujd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.328715, 0.775779, -0.538621, 0.915893, -0.400992, -0.0185916, -0.230406, -0.487208, -0.842343, 16, 4.3251, -142.337)
+light_energy = 1.06
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 8192.0
+sky_mode = 1
+
+[node name="terrain" type="MeshInstance3D" parent="." groups=["terrain"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, -4, -100)
+gi_mode = 2
+mesh = SubResource("PlaneMesh_7e5km")
+surface_material_override/0 = SubResource("StandardMaterial3D_n2n67")
+script = ExtResource("2_58vcn")
+noise_scale = 0.02
+
+[node name="water" type="MeshInstance3D" parent="terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, -3.5, 100)
+mesh = SubResource("PlaneMesh_og5va")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="terrain"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="moops" type="Node3D" parent="." groups=["moops"]]
+
+[node name="moop" parent="moops" instance=ExtResource("1_otf1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.15167)
+
+[node name="moop2" parent="moops" instance=ExtResource("1_otf1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3208, 0, 0)
+
+[node name="moop3" parent="moops" instance=ExtResource("1_otf1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.86294, 0, -8.93394)
+
+[node name="moop4" parent="moops" instance=ExtResource("1_otf1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.86294, 0, 4.40478)
+
+[node name="moop5" parent="moops" instance=ExtResource("1_otf1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.15185, 0, -3.16491)
+
+[node name="moop6" parent="moops" instance=ExtResource("1_otf1a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8531, 0, 12.7996)
+
+[node name="player" parent="." groups=["player"] instance=ExtResource("2_gfrmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.90586)
+
+[node name="flowers" type="Node3D" parent="." groups=["flowers"]]
+
+[node name="datura" type="Node3D" parent="flowers"]

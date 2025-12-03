@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://b4nu165fk7ata"]
+
+[node name="iris" type="MeshInstance3D"]
