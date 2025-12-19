@@ -5,7 +5,7 @@ var ui_node
 func _ready():
 	ui_node = G.gn("ui")
 
-func _process(delta):
+func _process(_delta):
 	ui_node.get_node("datura_count").text = "datura: %s" % [$flowers/datura.get_child_count()]
 	ui_node.get_node("fps").text = "fps: %d" % [Engine.get_frames_per_second()]
 	ui_node.get_node("cull").text = "cull distance: %d" % [G.cull_dist]

@@ -1,11 +1,11 @@
 [gd_scene load_steps=15 format=3 uid="uid://cym2j0lbg3i0j"]
 
-[ext_resource type="Script" path="res://scenes/world.gd" id="1_aho6f"]
+[ext_resource type="Script" uid="uid://cfos6vk4wv663" path="res://scenes/world.gd" id="1_aho6f"]
 [ext_resource type="PackedScene" uid="uid://dfu3e7m6cqlbj" path="res://objects/moop.tscn" id="1_otf1a"]
-[ext_resource type="Script" path="res://scenes/terrain.gd" id="2_58vcn"]
+[ext_resource type="Script" uid="uid://ddhndr56hkp5u" path="res://scenes/terrain.gd" id="2_58vcn"]
 [ext_resource type="PackedScene" uid="uid://dx2n5ptt2761i" path="res://objects/player.tscn" id="2_gfrmt"]
 [ext_resource type="Texture2D" uid="uid://yhvpowmxubgd" path="res://textures/terrain_2.png" id="2_yaaiw"]
-[ext_resource type="Shader" path="res://misc/water.gdshader" id="3_mxpqk"]
+[ext_resource type="Shader" uid="uid://dotcyrkle36au" path="res://misc/water.gdshader" id="3_mxpqk"]
 
 [sub_resource type="Sky" id="Sky_mtjn7"]
 
