@@ -1,11 +1,8 @@
 extends RigidBody3D
 
+enum STATES {IDLE, SEARCHING, DESPERATE, SLEEPING, RUNNING, ALERT}
+var current_state:STATES = STATES.IDLE
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta):
+	if current_state == STATES.IDLE:
+		pass

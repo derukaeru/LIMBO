@@ -109,3 +109,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.90586)
 [node name="flowers" type="Node3D" parent="." groups=["flowers"]]
 
 [node name="datura" type="Node3D" parent="flowers"]
+
+[node name="corpse" type="Node3D" parent="flowers"]
