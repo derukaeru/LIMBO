@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3fcrqa3a4dnr"]
 
-[ext_resource type="Script" uid="uid://cnh7pr6x32kng" path="res://objects/flower_corpse.gd" id="1_f7hc3"]
-[ext_resource type="ArrayMesh" uid="uid://r6x2cu2fvc83" path="res://models/datura_flower.obj" id="2_1g44n"]
+[ext_resource type="Script" uid="uid://cnh7pr6x32kng" path="res://scenes/objects/flowers/flower_corpse.gd" id="1_f7hc3"]
+[ext_resource type="ArrayMesh" uid="uid://r6x2cu2fvc83" path="res://assets/models/datura_flower.obj" id="2_1g44n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ithcc"]
 size = Vector3(5.340088, 0.18310547, 5.800064)
@@ -58,7 +58,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="model" type="MeshInstance3D" parent="."]
-transform = Transform3D(4.0676208, 0.2567725, 0.114890136, -0.2639055, 4.059821, 0.2699753, -0.09739482, -0.27676862, 4.066762, -1.0909678, -0.46644604, 0)
+transform = Transform3D(4.0676208, 0.2567725, 0.11489018, -0.2639055, 4.059821, 0.26997542, -0.09739482, -0.27676862, 4.0667634, -1.0909678, -0.46644604, 0)
 mesh = ExtResource("2_1g44n")
 skeleton = NodePath("../..")
 

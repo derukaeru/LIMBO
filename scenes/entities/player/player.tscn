@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dx2n5ptt2761i"]
 
-[ext_resource type="Script" path="res://objects/player.gd" id="1_whpgg"]
-[ext_resource type="Script" path="res://objects/population_graph.gd" id="2_28mlv"]
+[ext_resource type="Script" uid="uid://s2xt45cnmqtj" path="res://scenes/entities/player/player.gd" id="1_whpgg"]
+[ext_resource type="Script" uid="uid://c3myt6qxaoawj" path="res://scenes/entities/player/population_graph.gd" id="2_28mlv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ipd6h"]
 shading_mode = 0

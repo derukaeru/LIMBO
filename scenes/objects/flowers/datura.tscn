@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d418bn2klhjm"]
 
-[ext_resource type="Script" uid="uid://doqj3twu60gfx" path="res://objects/datura.gd" id="1_citow"]
-[ext_resource type="ArrayMesh" uid="uid://r6x2cu2fvc83" path="res://models/datura_flower.obj" id="2_8i2t0"]
+[ext_resource type="Script" uid="uid://doqj3twu60gfx" path="res://scenes/objects/flowers/datura.gd" id="1_citow"]
+[ext_resource type="ArrayMesh" uid="uid://r6x2cu2fvc83" path="res://assets/models/datura_flower.obj" id="2_8i2t0"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_bsqmi"]
 top_radius = 0.0
@@ -70,7 +70,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00245669)
 target_position = Vector3(0, -1100, 0)
 
 [node name="model" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(4.0676193, 0.25677243, 0.1148901, -0.2639054, 4.05982, 0.26997522, -0.09739479, -0.27676857, 4.0667605, 0, -2.08991, 0)
+transform = Transform3D(4.0676193, 0.25677243, 0.114890136, -0.2639054, 4.05982, 0.2699753, -0.09739479, -0.27676857, 4.066762, 0, -2.08991, 0)
 mesh = ExtResource("2_8i2t0")
 skeleton = NodePath("../..")
 

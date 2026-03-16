@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="LIMBO"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/world/world.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://global.gd"
+Util="*res://scripts/autoloads/util.gd"
 
 [display]
 
