@@ -16,7 +16,10 @@ var age_max: float = 60.0 # seconds
 var reproduction_min: float = 6.0 # seconds
 var reproduction_max: float = 20.0 # seconds
 
-var offspring_chance := 0.80 # percentage
+var offspring_chance: float = 0.80 # percentage
+
+var sun_energy_speed: float = 1.0
+var lose_energy_speed: float = 2.0
 
 func _ready() -> void:
 	player = Util.gn("player")
@@ -33,6 +36,14 @@ func _ready() -> void:
 	# start idle animation at random times
 	get_tree().create_timer(randf_range(0, 1)).timeout.connect(func() -> void: anim.play("idle"))
 	
+	# get corpse energy
+	get_tree().create_timer(0.8).timeout.connect(get_corpse_energy)
+	
+	# get sun energy
+	get_tree().create_timer(sun_energy_speed).timeout.connect(get_sun)
+	
+	# lose energy
+	get_tree().create_timer(lose_energy_speed).timeout.connect(lose_energy)
 
 func _process(_delta) -> void:
 	if not has_pos:
@@ -75,18 +86,24 @@ func die() -> void:
 	queue_free()
 
 
-func _on_get_corpse_energy_timeout():
-	var areas = $detect_corpse.get_overlapping_areas()
+func get_corpse_energy() -> void:
+	var areas = detect_corpse.get_overlapping_areas()
 	for a in areas:
-		if(a.name == "flower_corpse"):
+		if(a.get_parent().is_in_group("flower_corpse")):
 			if a.energy > 0:
 				a.energy -= 1
 				energy += 1
+	
+	get_tree().create_timer(0.8).timeout.connect(get_corpse_energy)
 
-func _on_get_sun_energy_timeout():
+func get_sun() -> void:
 	# if daytime get energy 
 	# else dont
+	
 	energy += 1
+	get_tree().create_timer(sun_energy_speed).timeout.connect(get_sun)
 
-func _on_lose_energy_timeout():
+func lose_energy() -> void:
 	energy -= 1
+	
+	get_tree().create_timer(lose_energy_speed).timeout.connect(lose_energy)

@@ -1,17 +1,17 @@
 extends CharacterBody3D
 
 @export var speed: float = 9.8
-@export var look_sensitivity: float = 0.2 # Reduced for better control
+@export var look_sensitivity: float = 0.2
 
-@export var jump_force: float = 9.4      # added
-@export var gravity: float = 19.8        # added
+@export var jump_force: float = 9.4
+@export var gravity: float = 19.8
 
 var mouse_delta := Vector2.ZERO
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)  # Lock mouse
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)  
 
-func _unhandled_input(event):
+func _unhandled_input(event) -> void:
 	if event is InputEventMouseMotion:
 		mouse_delta = event.relative * look_sensitivity
 

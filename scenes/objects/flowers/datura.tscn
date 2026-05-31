@@ -82,18 +82,3 @@ libraries/ = SubResource("AnimationLibrary_3e2n8")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="detect_corpse" unique_id=920114163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023193372, -1.4793701, -0.099884085)
 shape = SubResource("BoxShape3D_g7eg4")
-
-[node name="get_corpse_energy" type="Timer" parent="." unique_id=854637895]
-wait_time = 0.4
-autostart = true
-
-[node name="get_sun_energy" type="Timer" parent="." unique_id=1034546299]
-autostart = true
-
-[node name="lose_energy" type="Timer" parent="." unique_id=22880661]
-wait_time = 1.2
-autostart = true
-
-[connection signal="timeout" from="get_corpse_energy" to="." method="_on_get_corpse_energy_timeout"]
-[connection signal="timeout" from="get_sun_energy" to="." method="_on_get_sun_energy_timeout"]
-[connection signal="timeout" from="lose_energy" to="." method="_on_lose_energy_timeout"]

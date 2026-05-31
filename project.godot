@@ -45,6 +45,7 @@ player=""
 moops=""
 world=""
 ui=""
+flower_corpse=""
 
 [input]
 

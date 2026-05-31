@@ -44,7 +44,7 @@ _data = {
 &"idle": SubResource("Animation_x3lgi")
 }
 
-[node name="flower_corpse" type="MeshInstance3D" unique_id=1567035406]
+[node name="flower_corpse" type="MeshInstance3D" unique_id=1567035406 groups=["flower_corpse"]]
 script = ExtResource("1_f7hc3")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=251655193]
@@ -53,10 +53,6 @@ script = ExtResource("1_f7hc3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1295166, -0.023691952, -0.13820648)
 shape = SubResource("BoxShape3D_ithcc")
 
-[node name="lose_energy" type="Timer" parent="." unique_id=188158456]
-wait_time = 0.5
-autostart = true
-
 [node name="model" type="MeshInstance3D" parent="." unique_id=1813790189]
 transform = Transform3D(4.0676208, 0.2567725, 0.114890195, -0.2639055, 4.059821, 0.26997545, -0.09739482, -0.27676862, 4.066764, -1.0909678, -0.46644604, 0)
 mesh = ExtResource("2_1g44n")
@@ -64,5 +60,3 @@ skeleton = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="model" unique_id=339252122]
 libraries/ = SubResource("AnimationLibrary_3e2n8")
-
-[connection signal="timeout" from="lose_energy" to="." method="_on_lose_energy_timeout"]
