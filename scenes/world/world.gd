@@ -2,7 +2,7 @@ extends Node3D
 
 var ui_node
 
-func _ready():
+func _ready() -> void:
 	ui_node = Util.gn("ui")
 
 func _process(_delta):

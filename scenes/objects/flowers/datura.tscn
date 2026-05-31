@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d418bn2klhjm"]
+[gd_scene format=3 uid="uid://d418bn2klhjm"]
 
 [ext_resource type="Script" uid="uid://doqj3twu60gfx" path="res://scenes/objects/flowers/datura.gd" id="1_citow"]
 [ext_resource type="ArrayMesh" uid="uid://r6x2cu2fvc83" path="res://assets/models/datura_flower.obj" id="2_8i2t0"]
@@ -52,62 +52,48 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7eg4"]
 size = Vector3(5.277832, 7.074951, 5.579895)
 
-[node name="datura" type="MeshInstance3D"]
-transform = Transform3D(0.933051, 0, 0, 0, 0.933051, 0, 0, 0, 0.933051, 0, 0.862939, 0)
+[node name="datura" type="MeshInstance3D" unique_id=888494611]
+transform = Transform3D(0.933051, 0, 0, 0, 0.933051, 0, 0, 0, 0.933051, 0, 0, 0)
 mesh = SubResource("CylinderMesh_bsqmi")
 script = ExtResource("1_citow")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=139176670]
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1931136105]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.08246, 0)
 shape = SubResource("BoxShape3D_foew7")
 
-[node name="RayCast3D" type="RayCast3D" parent="StaticBody3D"]
+[node name="RayCast3D" type="RayCast3D" parent="StaticBody3D" unique_id=1869526387]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00245669)
 target_position = Vector3(0, -1100, 0)
 
-[node name="model" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(4.0676193, 0.25677243, 0.114890136, -0.2639054, 4.05982, 0.2699753, -0.09739479, -0.27676857, 4.066762, 0, -2.08991, 0)
+[node name="model" type="MeshInstance3D" parent="StaticBody3D" unique_id=1208526809]
+transform = Transform3D(4.0676193, 0.25677243, 0.11489015, -0.2639054, 4.05982, 0.26997536, -0.09739479, -0.27676857, 4.0667624, 0, -2.08991, 0)
 mesh = ExtResource("2_8i2t0")
 skeleton = NodePath("../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D/model"]
-libraries = {
-&"": SubResource("AnimationLibrary_3e2n8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody3D/model" unique_id=1381220977]
+libraries/ = SubResource("AnimationLibrary_3e2n8")
 
-[node name="reproduce" type="Timer" parent="."]
-wait_time = 10.0
+[node name="detect_corpse" type="Area3D" parent="." unique_id=436323020]
 
-[node name="age" type="Timer" parent="."]
-wait_time = 7.0
-
-[node name="anim" type="Timer" parent="."]
-one_shot = true
-
-[node name="detect_corpse" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="detect_corpse"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="detect_corpse" unique_id=920114163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.023193372, -1.4793701, -0.099884085)
 shape = SubResource("BoxShape3D_g7eg4")
 
-[node name="get_corpse_energy" type="Timer" parent="."]
+[node name="get_corpse_energy" type="Timer" parent="." unique_id=854637895]
 wait_time = 0.4
 autostart = true
 
-[node name="get_sun_energy" type="Timer" parent="."]
+[node name="get_sun_energy" type="Timer" parent="." unique_id=1034546299]
 autostart = true
 
-[node name="lose_energy" type="Timer" parent="."]
+[node name="lose_energy" type="Timer" parent="." unique_id=22880661]
 wait_time = 1.2
 autostart = true
 
-[connection signal="timeout" from="reproduce" to="." method="reproduce"]
-[connection signal="timeout" from="age" to="." method="die"]
-[connection signal="timeout" from="anim" to="." method="_on_anim_timeout"]
 [connection signal="timeout" from="get_corpse_energy" to="." method="_on_get_corpse_energy_timeout"]
 [connection signal="timeout" from="get_sun_energy" to="." method="_on_get_sun_energy_timeout"]
 [connection signal="timeout" from="lose_energy" to="." method="_on_lose_energy_timeout"]

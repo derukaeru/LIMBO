@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dx2n5ptt2761i"]
+[gd_scene format=3 uid="uid://dx2n5ptt2761i"]
 
 [ext_resource type="Script" uid="uid://s2xt45cnmqtj" path="res://scenes/entities/player/player.gd" id="1_whpgg"]
 [ext_resource type="Script" uid="uid://c3myt6qxaoawj" path="res://scenes/entities/player/population_graph.gd" id="2_28mlv"]
@@ -12,27 +12,27 @@ material = SubResource("StandardMaterial3D_ipd6h")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0s7ha"]
 
-[node name="player" type="CharacterBody3D"]
+[node name="player" type="CharacterBody3D" unique_id=888489801]
 script = ExtResource("1_whpgg")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1642527067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02109, 0)
 mesh = SubResource("CapsuleMesh_tinwe")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=49647042]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02109, 0)
 shape = SubResource("CapsuleShape3D_0s7ha")
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Node3D" type="Node3D" parent="." unique_id=713566721]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70938, 0)
 
-[node name="SpringArm3D" type="SpringArm3D" parent="Node3D"]
+[node name="SpringArm3D" type="SpringArm3D" parent="Node3D" unique_id=1961287304]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40035, 0)
 spring_length = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D" groups=["cam"]]
+[node name="Camera3D" type="Camera3D" parent="Node3D/SpringArm3D" unique_id=629272212 groups=["cam"]]
 
-[node name="ui" type="ColorRect" parent="Node3D/SpringArm3D/Camera3D" groups=["ui"]]
+[node name="ui" type="ColorRect" parent="Node3D/SpringArm3D/Camera3D" unique_id=1506284247 groups=["ui"]]
 anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
@@ -43,7 +43,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="fps" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui"]
+[node name="fps" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui" unique_id=2111108003]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -56,7 +56,7 @@ text = "FPS: 60"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="datura_count" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui"]
+[node name="datura_count" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui" unique_id=922323243]
 layout_mode = 1
 offset_left = 8.0
 offset_top = 176.0
@@ -64,7 +64,7 @@ offset_right = 168.0
 offset_bottom = 200.0
 text = "datura: 100"
 
-[node name="cull" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui"]
+[node name="cull" type="Label" parent="Node3D/SpringArm3D/Camera3D/ui" unique_id=1855617407]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -76,7 +76,7 @@ offset_bottom = -5.0
 grow_vertical = 0
 text = "cull distance: 55"
 
-[node name="population_graph" type="ColorRect" parent="Node3D/SpringArm3D/Camera3D/ui"]
+[node name="population_graph" type="ColorRect" parent="Node3D/SpringArm3D/Camera3D/ui" unique_id=546904915]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 24.0
@@ -85,13 +85,13 @@ offset_bottom = 168.0
 color = Color(0.41598, 0.41598, 0.41598, 1)
 script = ExtResource("2_28mlv")
 
-[node name="datura_pop" type="Line2D" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph"]
+[node name="datura_pop" type="Line2D" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph" unique_id=298667687]
 
-[node name="Timer" type="Timer" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph/datura_pop"]
+[node name="Timer" type="Timer" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph/datura_pop" unique_id=568800556]
 wait_time = 2.0
 autostart = true
 
-[node name="update" type="Timer" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph"]
+[node name="update" type="Timer" parent="Node3D/SpringArm3D/Camera3D/ui/population_graph" unique_id=1316614368]
 autostart = true
 
 [connection signal="timeout" from="Node3D/SpringArm3D/Camera3D/ui/population_graph/datura_pop/Timer" to="Node3D/SpringArm3D/Camera3D/ui/population_graph" method="datura_pop_update"]

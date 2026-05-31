@@ -15,14 +15,16 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="LIMBO"
+config/tags=PackedStringArray("simulations")
 run/main_scene="res://scenes/world/world.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
-config/tags=PackedStringArray()
 
 [autoload]
 
-Util="*res://scripts/autoloads/util.gd"
+GameManager="*uid://d0c7yy6m7uxl8"
+Registry="*uid://dw5e4gyafp5w"
+Util="*uid://bijgc3nxevxx0"
 
 [display]
 

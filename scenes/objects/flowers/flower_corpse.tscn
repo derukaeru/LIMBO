@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3fcrqa3a4dnr"]
+[gd_scene format=3 uid="uid://c3fcrqa3a4dnr"]
 
 [ext_resource type="Script" uid="uid://cnh7pr6x32kng" path="res://scenes/objects/flowers/flower_corpse.gd" id="1_f7hc3"]
 [ext_resource type="ArrayMesh" uid="uid://r6x2cu2fvc83" path="res://assets/models/datura_flower.obj" id="2_1g44n"]
@@ -44,27 +44,25 @@ _data = {
 &"idle": SubResource("Animation_x3lgi")
 }
 
-[node name="flower_corpse" type="MeshInstance3D"]
+[node name="flower_corpse" type="MeshInstance3D" unique_id=1567035406]
 script = ExtResource("1_f7hc3")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." unique_id=251655193]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=578450027]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1295166, -0.023691952, -0.13820648)
 shape = SubResource("BoxShape3D_ithcc")
 
-[node name="lose_energy" type="Timer" parent="."]
+[node name="lose_energy" type="Timer" parent="." unique_id=188158456]
 wait_time = 0.5
 autostart = true
 
-[node name="model" type="MeshInstance3D" parent="."]
-transform = Transform3D(4.0676208, 0.2567725, 0.11489018, -0.2639055, 4.059821, 0.26997542, -0.09739482, -0.27676862, 4.0667634, -1.0909678, -0.46644604, 0)
+[node name="model" type="MeshInstance3D" parent="." unique_id=1813790189]
+transform = Transform3D(4.0676208, 0.2567725, 0.114890195, -0.2639055, 4.059821, 0.26997545, -0.09739482, -0.27676862, 4.066764, -1.0909678, -0.46644604, 0)
 mesh = ExtResource("2_1g44n")
 skeleton = NodePath("../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="model"]
-libraries = {
-&"": SubResource("AnimationLibrary_3e2n8")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="model" unique_id=339252122]
+libraries/ = SubResource("AnimationLibrary_3e2n8")
 
 [connection signal="timeout" from="lose_energy" to="." method="_on_lose_energy_timeout"]

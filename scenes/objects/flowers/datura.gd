@@ -1,46 +1,52 @@
 extends MeshInstance3D
 
-var player
-var spawn_radius:float = 10
+@onready var anim: AnimationPlayer = $StaticBody3D/model/AnimationPlayer
+@onready var _raycast: RayCast3D = $StaticBody3D/RayCast3D
+@onready var detect_corpse: Area3D = $detect_corpse
 
-var energy := 50 # the sun energy thing
+var spawn_radius: float = 10.0
+var energy: float = 50.0 # the sun energy thing
 
+var player: CharacterBody3D
 var has_pos := false
 
-var age_min := 20 # seconds
-var age_max := 60 # seconds
+var age_min: float = 20.0 # seconds
+var age_max: float = 60.0 # seconds
 
-var reproduction_min := 6 # seconds
-var reproduction_max := 20 # seconds
+var reproduction_min: float = 6.0 # seconds
+var reproduction_max: float = 20.0 # seconds
 
 var offspring_chance := 0.80 # percentage
 
-func _ready():
-	player = G.gn("player")
-	$age.wait_time = randi_range(age_min, age_max)
-	$age.start()
+func _ready() -> void:
+	player = Util.gn("player")
 	
-	$reproduce.wait_time = randi_range(reproduction_min, reproduction_max)
-	$reproduce.start()
+	# aging
+	get_tree().create_timer(randf_range(age_min, age_max)).timeout.connect(die)
 	
+	# reproduce
+	get_tree().create_timer(randf_range(reproduction_min, reproduction_max)).timeout.connect(reproduce)
+	
+	# set random rot
 	rotation.y = randf_range(0, 360)
 	
-	$anim.wait_time = randf_range(0, 1)
-	$anim.start()
+	# start idle animation at random times
+	get_tree().create_timer(randf_range(0, 1)).timeout.connect(func() -> void: anim.play("idle"))
+	
 
-func _process(_delta):
+func _process(_delta) -> void:
 	if not has_pos:
-		if $StaticBody3D/RayCast3D.is_colliding():
-			var collision_point = $StaticBody3D/RayCast3D.get_collision_point()
+		if _raycast.is_colliding():
+			var collision_point = _raycast.get_collision_point()
 			position = collision_point
 			has_pos = true
 			
-			if position.y <= G.gn("terrain").water_height:
+			if position.y <= Util.get_group_node("terrain").water_height:
 				queue_free()
 	
 	if player:
-		var dist = global_position.distance_to(player.global_position)
-		if dist > G.cull_dist:
+		var dist: float = global_position.distance_to(player.global_position)
+		if dist > GameManager.cull_dist:
 			visible = false
 			set_physics_process(false)
 		else:
@@ -50,27 +56,24 @@ func _process(_delta):
 	if energy <= 0:
 		die()
 	
-func reproduce():
+func reproduce() -> void:
 	if randf() <= offspring_chance:
-		var datura = preload("res://objects/datura.tscn")
-		var d = datura.instantiate()
-		d.position = Vector3(position.x + randf_range(-spawn_radius, spawn_radius), 1000, position.z + randf_range(-spawn_radius, spawn_radius))
-		G.gn("flowers").get_node("datura").add_child(d)
+		var datura = load(Registry.UID["datura"]).instantiate()
+		datura.position = Vector3(position.x + randf_range(-spawn_radius, spawn_radius), 1000, position.z + randf_range(-spawn_radius, spawn_radius))
+		Util.get_group_node("flowers").get_node("datura").add_child(datura)
 	
-	$reproduce.wait_time = randi_range(reproduction_min, reproduction_max)
+	get_tree().create_timer(randf_range(reproduction_min, reproduction_max)).timeout.connect(reproduce)
 	energy = round(energy * 0.75)
 
-func die():
-	var corpse = preload("res://objects/flower_corpse.tscn")
-	var c = corpse.instantiate()
-	c.position = position
-	c.energy = energy
-	G.gn("flowers").get_node("corpse").add_child(c)
+func die() -> void:
+	var corpse = load(Registry.UID["flower_corpse"]).instantiate()
 	
+	corpse.position = position
+	corpse.energy = energy
+	
+	Util.get_group_node("flowers").get_node("corpse").add_child(corpse)
 	queue_free()
 
-func _on_anim_timeout():
-	$StaticBody3D/model/AnimationPlayer.play("idle")
 
 func _on_get_corpse_energy_timeout():
 	var areas = $detect_corpse.get_overlapping_areas()
