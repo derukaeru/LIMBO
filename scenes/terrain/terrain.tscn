@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://fxllbycsl5xe"]
+
+[ext_resource type="Script" uid="uid://ddhndr56hkp5u" path="res://scenes/terrain/terrain.gd" id="1_5ibnn"]
+[ext_resource type="Shader" uid="uid://dotcyrkle36au" path="res://assets/shaders/water.gdshader" id="1_hn2sr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ibnn"]
+render_priority = 0
+shader = ExtResource("1_hn2sr")
+shader_parameter/WATER_COL = Color(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Color(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Color(0.8125, 0.9609, 0.9648, 1)
+shader_parameter/distortion_speed = 2.0
+shader_parameter/tile = Vector2(10, 10)
+shader_parameter/height = 2.0
+shader_parameter/wave_size = Vector2(2, 2)
+shader_parameter/wave_speed = 1.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e38tj"]
+size = Vector2(200, 200)
+
+[node name="terrain" type="MeshInstance3D" unique_id=389178504 groups=["terrain"]]
+script = ExtResource("1_5ibnn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=341066204]
+
+[node name="water" type="MeshInstance3D" parent="." unique_id=363756567]
+material_override = SubResource("ShaderMaterial_5ibnn")
+mesh = SubResource("PlaneMesh_e38tj")

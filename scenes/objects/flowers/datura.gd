@@ -22,7 +22,7 @@ var sun_energy_speed: float = 1.0
 var lose_energy_speed: float = 2.0
 
 func _ready() -> void:
-	player = Util.gn("player")
+	player = Util.get_group_node("player")
 	
 	# aging
 	get_tree().create_timer(randf_range(age_min, age_max)).timeout.connect(die)
@@ -71,7 +71,7 @@ func reproduce() -> void:
 	if randf() <= offspring_chance:
 		var datura = load(Registry.UID["datura"]).instantiate()
 		datura.position = Vector3(position.x + randf_range(-spawn_radius, spawn_radius), 1000, position.z + randf_range(-spawn_radius, spawn_radius))
-		Util.get_group_node("flowers").get_node("datura").add_child(datura)
+		Util.get_group_node("flowers").add_child(datura)
 	
 	get_tree().create_timer(randf_range(reproduction_min, reproduction_max)).timeout.connect(reproduce)
 	energy = round(energy * 0.75)
@@ -82,14 +82,14 @@ func die() -> void:
 	corpse.position = position
 	corpse.energy = energy
 	
-	Util.get_group_node("flowers").get_node("corpse").add_child(corpse)
+	Util.get_group_node("flowers").add_child(corpse)
 	queue_free()
 
 
 func get_corpse_energy() -> void:
 	var areas = detect_corpse.get_overlapping_areas()
 	for a in areas:
-		if(a.get_parent().is_in_group("flower_corpse")):
+		if(a.is_in_group("flower_corpse")):
 			if a.energy > 0:
 				a.energy -= 1
 				energy += 1

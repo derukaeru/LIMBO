@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends Area3D
 
 var energy: float = 30.0
 

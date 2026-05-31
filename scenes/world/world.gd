@@ -17,10 +17,10 @@ func _process(_delta):
 		Util.cull_dist += 5
 
 func generate_flowers():
-	var datura = load("res://objects/datura.tscn")
+	var datura = load(Registry.UID["datura"])
 	
 	for i in 10:
 		var d = datura.instantiate()
 		d.position = Vector3(randf_range(-100, 100), 1000, randf_range(-100, 100))
 		
-		$flowers/datura.add_child(d)
+		Util.get_group_node("flowers").add_child(d)
