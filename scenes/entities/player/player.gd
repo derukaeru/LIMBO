@@ -1,10 +1,12 @@
 extends CharacterBody3D
 
-@export var speed: float = 9.8
-@export var look_sensitivity: float = 0.2
+@onready var spring_arm: SpringArm3D = $ArmContainer/SpringArm3D
 
-@export var jump_force: float = 9.4
-@export var gravity: float = 19.8
+var speed: float = 9.8
+var look_sensitivity: float = 0.2
+
+var jump_force: float = 9.4
+var gravity: float = 19.8
 
 var mouse_delta := Vector2.ZERO
 
@@ -15,23 +17,21 @@ func _unhandled_input(event) -> void:
 	if event is InputEventMouseMotion:
 		mouse_delta = event.relative * look_sensitivity
 
-func _physics_process(delta):
-	# Rotate character based on mouse movement
-	$Node3D/SpringArm3D.rotation_degrees.y -= mouse_delta.x  # Rotate left/right
-	$Node3D/SpringArm3D.rotation_degrees.x -= mouse_delta.y  # Look up/down
-	$Node3D/SpringArm3D.rotation_degrees.x = clamp($Node3D/SpringArm3D.rotation_degrees.x, -60, 40)  # Prevent flipping
-	mouse_delta = Vector2.ZERO  # Reset after applying
+func _physics_process(delta) -> void:
+	spring_arm.rotation_degrees.y -= mouse_delta.x 
+	spring_arm.rotation_degrees.x -= mouse_delta.y  
+	spring_arm.rotation_degrees.x = clamp(spring_arm.rotation_degrees.x, -60, 40) 
+	mouse_delta = Vector2.ZERO  
 
-	# Movement
 	var direction = Vector3.ZERO
 	if Input.is_action_pressed("forward"):
-		direction -= $Node3D/SpringArm3D.transform.basis.z  # Move Forward
+		direction -= spring_arm.transform.basis.z 
 	if Input.is_action_pressed("backward"):
-		direction += $Node3D/SpringArm3D.transform.basis.z  # Move Backward
+		direction += spring_arm.transform.basis.z
 	if Input.is_action_pressed("left"):
-		direction -= $Node3D/SpringArm3D.transform.basis.x  # Move Left
+		direction -= spring_arm.transform.basis.x
 	if Input.is_action_pressed("right"):
-		direction += $Node3D/SpringArm3D.transform.basis.x  # Move Right
+		direction += spring_arm.transform.basis.x
 
 	if direction != Vector3.ZERO:
 		direction = direction.normalized() * speed
@@ -49,8 +49,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func _process(_delta):
-	# Toggle mouse lock on ESC
+func _process(_delta) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):  
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -58,8 +57,8 @@ func _process(_delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	if Input.is_action_pressed("zoom_in"):
-		$Node3D/SpringArm3D.spring_length -= 0.2  
+		spring_arm.spring_length -= 0.2  
 	if Input.is_action_pressed("zoom_out"):
-		$Node3D/SpringArm3D.spring_length += 0.2
+		spring_arm.spring_length += 0.2
 	
-	$Node3D/SpringArm3D.spring_length = clamp($Node3D/SpringArm3D.spring_length, -1.6, INF)
+	spring_arm.spring_length = clamp(spring_arm.spring_length, -1.6, INF)

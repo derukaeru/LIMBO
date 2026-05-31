@@ -1,23 +1,22 @@
 extends ColorRect
 
 var datura_pop := []
-var max_points := 200        # how many points to keep max
+var max_points := 200
 var graph_size := Vector2(144, 144)
 
-func datura_pop_update():
-	var count = G.gm().get_node("flowers/datura").get_child_count()
+func datura_pop_update() -> void:
+	var count = Util.get_all_group_node("datura").size()
 	datura_pop.append(count)
 
-	# Limit array so it doesn't grow forever
 	if datura_pop.size() > max_points:
 		datura_pop.pop_front()
 
 	update_graph()
 
-func update_graph():
+func update_graph() -> void:
 	queue_redraw()
 
-func _draw():
+func _draw() -> void:
 	if datura_pop.size() < 2:
 		return
 

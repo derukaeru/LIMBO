@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cym2j0lbg3i0j"]
+[gd_scene format=3 uid="uid://cym2j0lbg3i0j"]
 
 [ext_resource type="Script" uid="uid://cfos6vk4wv663" path="res://scenes/world/world.gd" id="1_aho6f"]
 [ext_resource type="PackedScene" uid="uid://dx2n5ptt2761i" path="res://scenes/entities/player/player.tscn" id="2_gfrmt"]
@@ -10,13 +10,13 @@ background_mode = 1
 background_color = Color(0.586097, 0.885535, 0.881571, 1)
 sky = SubResource("Sky_mtjn7")
 
-[node name="world" type="Node3D" groups=["world"]]
+[node name="world" type="Node3D" unique_id=362282788 groups=["world"]]
 script = ExtResource("1_aho6f")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1543335437]
 environment = SubResource("Environment_crujd")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=515945789]
 transform = Transform3D(0.328715, 0.775779, -0.538621, 0.915893, -0.400992, -0.0185916, -0.230406, -0.487208, -0.842343, 16, 4.3251, -142.337)
 light_energy = 1.06
 shadow_enabled = true
@@ -24,9 +24,9 @@ directional_shadow_mode = 0
 directional_shadow_max_distance = 8192.0
 sky_mode = 1
 
-[node name="moops" type="Node3D" parent="." groups=["moops"]]
+[node name="moops" type="Node3D" parent="." unique_id=294802911 groups=["moops"]]
 
-[node name="player" parent="." groups=["player"] instance=ExtResource("2_gfrmt")]
+[node name="flowers" type="Node3D" parent="." unique_id=2045740726 groups=["flowers"]]
+
+[node name="player" parent="." unique_id=1317473512 groups=["player"] instance=ExtResource("2_gfrmt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.90586)
-
-[node name="flowers" type="Node3D" parent="." groups=["flowers"]]

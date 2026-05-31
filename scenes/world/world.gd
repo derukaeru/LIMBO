@@ -3,12 +3,13 @@ extends Node3D
 var ui_node
 
 func _ready() -> void:
-	ui_node = Util.gn("ui")
+	#ui_node = Util.get_group_node("ui")
+	pass
 
 func _process(_delta):
-	ui_node.get_node("datura_count").text = "datura: %s" % [$flowers/datura.get_child_count()]
-	ui_node.get_node("fps").text = "fps: %d" % [Engine.get_frames_per_second()]
-	ui_node.get_node("cull").text = "cull distance: %d" % [Util.cull_dist]
+	#ui_node.get_node("datura_count").text = "datura: %s" % [Util.get_all_group_node("datura").size()]
+	#ui_node.get_node("fps").text = "fps: %d" % [Engine.get_frames_per_second()]
+	#ui_node.get_node("cull").text = "cull distance: %d" % [Util.cull_dist]
 	
 	if Input.is_action_just_pressed("reduce_cull"):
 		Util.cull_dist -= 5

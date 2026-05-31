@@ -52,7 +52,7 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_g7eg4"]
 size = Vector3(5.277832, 7.074951, 5.579895)
 
-[node name="datura" type="MeshInstance3D" unique_id=888494611]
+[node name="datura" type="MeshInstance3D" unique_id=888494611 groups=["datura"]]
 transform = Transform3D(0.933051, 0, 0, 0, 0.933051, 0, 0, 0, 0.933051, 0, 0, 0)
 mesh = SubResource("CylinderMesh_bsqmi")
 script = ExtResource("1_citow")
